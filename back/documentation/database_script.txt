@@ -1,0 +1,94 @@
+-- ---
+-- Table 'Country'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Country`;
+		
+CREATE TABLE `Country` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `capital` VARCHAR(50) NOT NULL,
+  `population` VARCHAR(20) NOT NULL,
+  `flagImage` VARCHAR(300) NOT NULL,
+  `Continent_id` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Continent'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Continent`;
+		
+CREATE TABLE `Continent` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Coin'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Coin`;
+		
+CREATE TABLE `Coin` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `symbol` VARCHAR(8) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Language'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Language`;
+		
+CREATE TABLE `Language` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Country_Language'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Country_Language`;
+		
+CREATE TABLE `Country_Language` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `Country_id` INTEGER NOT NULL,
+  `Language_id` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Country_Coin'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Country_Coin`;
+		
+CREATE TABLE `Country_Coin` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `Country_id` INTEGER NOT NULL,
+  `Coin_id` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `Country` ADD FOREIGN KEY (Continent_id) REFERENCES `Continent` (`id`);
+ALTER TABLE `Country_Language` ADD FOREIGN KEY (Country_id) REFERENCES `Country` (`id`);
+ALTER TABLE `Country_Language` ADD FOREIGN KEY (Language_id) REFERENCES `Language` (`id`);
+ALTER TABLE `Country_Coin` ADD FOREIGN KEY (Country_id) REFERENCES `Country` (`id`);
+ALTER TABLE `Country_Coin` ADD FOREIGN KEY (Coin_id) REFERENCES `Coin` (`id`);
